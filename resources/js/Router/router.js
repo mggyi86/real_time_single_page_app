@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/login/Login'
 import SignUp from '../components/login/signup'
-import Forum from '../components/forum/Forum'
+import Forum from '../components/forum/forum'
 import Logout from '../components/login/logout'
 
 Vue.use(VueRouter);
