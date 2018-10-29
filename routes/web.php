@@ -17,5 +17,6 @@
 
 Route::view('/', 'home');
 Route::view('/{any}', 'home');
+// Route::view('/{any}/{any}', 'home');
 
 Route::get('test', 'TestController@test');
