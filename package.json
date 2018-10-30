@@ -24,6 +24,7 @@
         "pusher-js": "^4.3.1",
         "socket.io-client": "^2.1.1",
         "vue-router": "^3.0.1",
+        "vue-simplemde": "^0.4.9",
         "vuetify": "^1.2.10"
     }
 }
