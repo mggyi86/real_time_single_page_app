@@ -1,12 +1,14 @@
 <template>
-    <div>
-        <edit-question v-if="editing"></edit-question>
-        <div v-else>
-            <show-question
-            :data="question"
-            v-if="question"
-            ></show-question>
-        </div>
+    <div v-if="question">
+        <edit-question
+        v-if="editing"
+        :data="question"
+        ></edit-question>
+
+        <show-question
+        :data="question"
+        v-else
+        ></show-question>
     </div>
 </template>
 
@@ -28,8 +30,11 @@ export default {
   methods: {
     listen: function() {
       EventBus.$on('startEditing', () => {
-          this.editing = true;
+        this.editing = true;
       });
+      EventBus.$on('cancelEditing', () => {
+        this.editing = false;
+      })
     },
     getQuestion: function() {
       axios.get(`/api/question/${this.$route.params.slug}`)

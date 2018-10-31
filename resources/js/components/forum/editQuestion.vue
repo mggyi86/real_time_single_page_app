@@ -1,7 +1,7 @@
 <template>
     <v-container fluid>
         <v-card>
-            <v-form>
+            <v-form @submit.prevent="update">
                 <v-text-field
                 v-model="form.title"
                 label="Title"
@@ -12,13 +12,13 @@
                 <markdown-editor v-model="form.body"></markdown-editor>
 
                 <v-card-actions>
-                    <v-btn icon small>
+                    <v-btn icon small type="submit">
                         <v-icon color="teal">
                             save
                         </v-icon>
                     </v-btn>
 
-                    <v-btn icon small>
+                    <v-btn icon small @click="cancel">
                         <v-icon>
                             cancel
                         </v-icon>
@@ -31,6 +31,7 @@
 
 <script>
 export default {
+  props: [ 'data' ],
   data() {
     return {
       form: {
@@ -38,6 +39,18 @@ export default {
         body: null
       }
     }
+  },
+  methods: {
+    cancel: function() {
+      EventBus.$emit('cancelEditing');
+    },
+    update: function() {
+      axios.patch(`/api/question/${this.form.slug}`, this.form)
+        .then(res => this.cancel())
+    }
+  },
+  mounted() {
+    this.form = this.data;
   }
 }
 </script>

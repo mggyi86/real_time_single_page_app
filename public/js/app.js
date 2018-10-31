@@ -95138,7 +95138,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -95153,6 +95153,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ShowQuestion___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ShowQuestion__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editQuestion__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editQuestion___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__editQuestion__);
+//
+//
 //
 //
 //
@@ -95187,6 +95189,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       EventBus.$on('startEditing', function () {
         _this.editing = true;
+      });
+      EventBus.$on('cancelEditing', function () {
+        _this.editing = false;
       });
     },
     getQuestion: function getQuestion() {
@@ -95541,7 +95546,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -95585,6 +95590,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data'],
   data: function data() {
     return {
       form: {
@@ -95592,6 +95598,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         body: null
       }
     };
+  },
+
+  methods: {
+    cancel: function cancel() {
+      EventBus.$emit('cancelEditing');
+    },
+    update: function update() {
+      var _this = this;
+
+      axios.patch('/api/question/' + this.form.slug, this.form).then(function (res) {
+        return _this.cancel();
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.form = this.data;
   }
 });
 
@@ -95612,6 +95634,14 @@ var render = function() {
         [
           _c(
             "v-form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.update($event)
+                }
+              }
+            },
             [
               _c("v-text-field", {
                 attrs: { label: "Title", type: "text", required: "" },
@@ -95639,7 +95669,7 @@ var render = function() {
                 [
                   _c(
                     "v-btn",
-                    { attrs: { icon: "", small: "" } },
+                    { attrs: { icon: "", small: "", type: "submit" } },
                     [
                       _c("v-icon", { attrs: { color: "teal" } }, [
                         _vm._v(
@@ -95652,7 +95682,10 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-btn",
-                    { attrs: { icon: "", small: "" } },
+                    {
+                      attrs: { icon: "", small: "" },
+                      on: { click: _vm.cancel }
+                    },
                     [
                       _c("v-icon", [
                         _vm._v(
@@ -95693,23 +95726,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.editing
-        ? _c("edit-question")
-        : _c(
-            "div",
-            [
-              _vm.question
-                ? _c("show-question", { attrs: { data: _vm.question } })
-                : _vm._e()
-            ],
-            1
-          )
-    ],
-    1
-  )
+  return _vm.question
+    ? _c(
+        "div",
+        [
+          _vm.editing
+            ? _c("edit-question", { attrs: { data: _vm.question } })
+            : _c("show-question", { attrs: { data: _vm.question } })
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
