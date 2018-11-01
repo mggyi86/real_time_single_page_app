@@ -42,7 +42,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = str_slug($request->name);
         $category->save();
-        return response()->json(['message' => 'Created'], Response::HTTP_CREATED);
+        return response()->json(new CategoryResource($category), Response::HTTP_CREATED);
     }
 
     /**
@@ -69,7 +69,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => str_slug($request->name)
         ]);
-        return response()->json(['message' => 'Updated'], Response::HTTP_ACCEPTED);
+        return response()->json(new CategoryResource($category), Response::HTTP_ACCEPTED);
     }
 
     /**
