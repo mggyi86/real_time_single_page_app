@@ -23,6 +23,8 @@ class Question extends Model
 
     // protected $guarded = [];.
 
+    protected $with = [ 'replies' ];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -35,7 +37,7 @@ class Question extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->latest();
     }
 
     public function category()

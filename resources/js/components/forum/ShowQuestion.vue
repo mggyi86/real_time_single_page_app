@@ -11,7 +11,7 @@
                     </span>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn color="teal">5 Replies</v-btn>
+                <v-btn color="teal" dark>{{ data.reply_count }} Replies</v-btn>
             </v-card-title>
 
             <v-card-text v-html="body"></v-card-text>
@@ -43,12 +43,23 @@ export default {
     },
     edit() {
       EventBus.$emit('startEditing');
+    },
+    listen() {
+      EventBus.$on('newReply', (reply) => {
+        this.data.reply_count++;
+      });
+      EventBus.$on('deleteReply', (index) => {
+        this.data.reply_count--;
+      });
     }
   },
   computed: {
     body: function() {
       return md.parse(this.data.body);
     }
+  },
+  created() {
+    this.listen();
   }
 }
 </script>

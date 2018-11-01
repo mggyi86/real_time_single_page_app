@@ -9,17 +9,26 @@
         :data="question"
         v-else
         ></show-question>
+
+        <v-container>
+            <replies :question="question"></replies>
+            <new-reply :questionSlug="question.slug"></new-reply>
+        </v-container>
     </div>
 </template>
 
 <script>
+import Replies from '../reply/replies';
+import NewReply from '../reply/newReply';
 import ShowQuestion from './ShowQuestion';
-import EditQuestion from './editQuestion'
+import EditQuestion from './editQuestion';
 
 export default {
   components: {
     ShowQuestion,
-    EditQuestion
+    EditQuestion,
+    Replies,
+    NewReply
   },
   data() {
     return {

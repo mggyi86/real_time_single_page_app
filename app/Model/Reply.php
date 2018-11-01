@@ -9,7 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    protected $guarded = [];
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function($reply) {
+            $reply->user_id = auth()->id();
+        });
+    }
+
+    // protected $guarded = [];
+
+    protected $fillable = [ 'body', 'question_id', 'user_id' ];
 
     public function question()
     {

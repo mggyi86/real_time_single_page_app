@@ -6,7 +6,7 @@
     <div class="hidden-sm-and-down">
       <router-link
       v-for="item in items"
-      :key=items.indexOf(item)
+      :key="items.indexOf(item)"
       :to="item.to"
       v-if="item.show">
         <v-btn flat>{{ item.title }}</v-btn>
