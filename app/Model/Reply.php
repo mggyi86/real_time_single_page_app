@@ -31,13 +31,13 @@ class Reply extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function likes()
-    // {
-    //     return $this->hasMany(Like::class);
-    // }
-
-    public function like()
+    public function likes()
     {
-        return $this->belongsTo(Like::class);
+        return $this->hasMany(Like::class);
     }
+
+    // public function like()
+    // {
+    //     return $this->belongsTo(Like::class);
+    // }
 }
