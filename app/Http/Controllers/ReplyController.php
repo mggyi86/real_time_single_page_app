@@ -7,6 +7,7 @@ use App\Model\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\ReplyResource;
+use App\Notifications\NewReplyNotification;
 
 class ReplyController extends Controller
 {
@@ -39,6 +40,8 @@ class ReplyController extends Controller
     public function store(Question $question, Request $request)
     {
         $reply = $question->replies()->create($request->all());
+        $user = $question->user;
+        $user->notify(new NewReplyNotification($reply));
         return response()->json(['reply' => new ReplyResource($reply)], Response::HTTP_CREATED);
     }
 

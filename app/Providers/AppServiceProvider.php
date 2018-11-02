@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // $user = User::first();
+        // $notis = $user->unreadNotifications()->get();
+        // foreach($notis as $noti) {
+        //     dd($noti->data);
+        // }
+        // dd($user->unreadNotifications()->get());
     }
 
     /**
