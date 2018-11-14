@@ -13,15 +13,20 @@
         </div>
     </v-card-title>
 
-    <v-card-text>
-        {{ question.body }}
+    <v-card-text v-html="body">
+        <!-- {{ question.body }} -->
     </v-card-text>
     </v-card>
 </template>
 
 <script>
 export default {
-  props: ['question']
+  props: ['question'],
+  computed: {
+    body: function() {
+      return md.parse(this.question.body);
+    }
+  },
 }
 </script>
 

@@ -4,7 +4,7 @@
             <v-flex xs8>
                 <question
                 v-for="question in questions"
-                :key=questions.indexOf(question)
+                :key="questions.indexOf(question)"
                 :question="question"
                 ></question>
             </v-flex>
