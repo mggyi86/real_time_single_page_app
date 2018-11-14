@@ -104215,10 +104215,10 @@ var render = function() {
               _vm._v(" "),
               _c("v-divider"),
               _vm._v(" "),
-              _vm._l(_vm.reads, function(item) {
+              _vm._l(_vm.reads, function(item, index) {
                 return _c(
                   "v-list-tile",
-                  { key: item.id },
+                  { key: index },
                   [_c("v-list-tile-title", [_vm._v(_vm._s(item.question))])],
                   1
                 )

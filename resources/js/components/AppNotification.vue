@@ -19,8 +19,8 @@
             <v-divider></v-divider>
 
             <v-list-tile
-            v-for="item in reads"
-            :key="item.id"
+            v-for="(item, index) in reads"
+            :key="index"
             >
                 <v-list-tile-title>{{ item.question }}</v-list-tile-title>
             </v-list-tile>
